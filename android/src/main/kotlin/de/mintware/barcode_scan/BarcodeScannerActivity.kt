@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.Surface
 import android.view.WindowManager
 import com.google.zxing.BarcodeFormat
@@ -24,17 +22,17 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         const val EXTRA_ERROR_CODE = "error_code"
 
         private val formatMap: Map<Protos.BarcodeFormat, BarcodeFormat> = mapOf(
-                Protos.BarcodeFormat.aztec to BarcodeFormat.AZTEC,
-                Protos.BarcodeFormat.code39 to BarcodeFormat.CODE_39,
-                Protos.BarcodeFormat.code93 to BarcodeFormat.CODE_93,
-                Protos.BarcodeFormat.code128 to BarcodeFormat.CODE_128,
-                Protos.BarcodeFormat.dataMatrix to BarcodeFormat.DATA_MATRIX,
-                Protos.BarcodeFormat.ean8 to BarcodeFormat.EAN_8,
-                Protos.BarcodeFormat.ean13 to BarcodeFormat.EAN_13,
-                Protos.BarcodeFormat.interleaved2of5 to BarcodeFormat.ITF,
-                Protos.BarcodeFormat.pdf417 to BarcodeFormat.PDF_417,
-                Protos.BarcodeFormat.qr to BarcodeFormat.QR_CODE,
-                Protos.BarcodeFormat.upce to BarcodeFormat.UPC_E
+            Protos.BarcodeFormat.aztec to BarcodeFormat.AZTEC,
+            Protos.BarcodeFormat.code39 to BarcodeFormat.CODE_39,
+            Protos.BarcodeFormat.code93 to BarcodeFormat.CODE_93,
+            Protos.BarcodeFormat.code128 to BarcodeFormat.CODE_128,
+            Protos.BarcodeFormat.dataMatrix to BarcodeFormat.DATA_MATRIX,
+            Protos.BarcodeFormat.ean8 to BarcodeFormat.EAN_8,
+            Protos.BarcodeFormat.ean13 to BarcodeFormat.EAN_13,
+            Protos.BarcodeFormat.interleaved2of5 to BarcodeFormat.ITF,
+            Protos.BarcodeFormat.pdf417 to BarcodeFormat.PDF_417,
+            Protos.BarcodeFormat.qr to BarcodeFormat.QR_CODE,
+            Protos.BarcodeFormat.upce to BarcodeFormat.UPC_E
         )
 
     }
@@ -46,7 +44,8 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
 
         //lock orientation
         val rotation = (getSystemService(
-                Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
+            Context.WINDOW_SERVICE
+        ) as WindowManager).defaultDisplay.rotation
         val orientation = when (rotation) {
             Surface.ROTATION_0 -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             Surface.ROTATION_90 -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -97,7 +96,6 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             scannerView?.startCamera()
         }
     }
-    // endregion
 
     override fun handleResult(result: Result?) {
         val intent = Intent()
@@ -115,7 +113,7 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         } else {
 
             val format = (formatMap.filterValues { it == result.barcodeFormat }.keys.firstOrNull()
-                    ?: Protos.BarcodeFormat.unknown)
+                ?: Protos.BarcodeFormat.unknown)
 
             var formatNote = ""
             if (format == Protos.BarcodeFormat.unknown) {

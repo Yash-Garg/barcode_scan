@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Override view finder border color -->
+    <color name="viewfinder_border">#FFEB5B56</color>
+
+    <!-- Override view finder laser color -->
+    <color name="viewfinder_laser">#FFFFFFFF</color>
+</resources>

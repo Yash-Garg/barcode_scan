@@ -21,13 +21,15 @@
 
     <ImageView
         android:id="@+id/btn_flash"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
         android:contentDescription="@string/flash_toggle"
-        android:minWidth="40dp"
-        android:minHeight="40dp"
+        android:focusable="true"
         android:src="@drawable/ic_flash" />
 </RelativeLayout>

@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Surface
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -37,12 +39,11 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
 
     }
 
-    // region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionBar?.hide();
 
-        //lock orientation
+        actionBar?.hide()
+
         val rotation = (getSystemService(
             Context.WINDOW_SERVICE
         ) as WindowManager).defaultDisplay.rotation
@@ -63,8 +64,19 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             return
         }
 
-        scannerView = ZXingAutofocusScannerView(this).apply {
+        setContentView(R.layout.activity_scanner)
+        val contentFrame = findViewById<ViewGroup>(R.id.scan_view)
+        val flashButton = findViewById<ImageView>(R.id.btn_flash)
+
+        scannerView = ZXingAutofocusScannerView(this)
+        scannerView?.apply {
             setAutoFocus(config.android.useAutoFocus)
+            setShouldScaleToFill(true)
+            setSquareViewFinder(true)
+            setIsBorderCornerRounded(true)
+            setBorderCornerRadius(20)
+            setBorderStrokeWidth(10)
+
             val restrictedFormats = mapRestrictedBarcodeTypes()
             if (restrictedFormats.isNotEmpty()) {
                 setFormats(restrictedFormats)
@@ -74,11 +86,11 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             setAspectTolerance(config.android.aspectTolerance.toFloat())
             if (config.autoEnableFlash) {
                 flash = config.autoEnableFlash
-                invalidateOptionsMenu()
             }
         }
 
-        setContentView(scannerView)
+        contentFrame.addView(scannerView)
+        flashButton.setOnClickListener { scannerView?.toggleFlash() }
     }
 
     override fun onPause() {

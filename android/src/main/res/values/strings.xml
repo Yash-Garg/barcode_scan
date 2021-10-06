@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cam_info">Place your camera above the bar code to scan</string>
+    <string name="flash_toggle">Toggle Flash</string>
+</resources>

@@ -1,3 +1,10 @@
+# Changes in this fork
+
+- Removed the action bar on scanner view
+- Flash icon is added in bottom center
+- Customs scanner view is used with a textview for help text
+- Borders are rounded and bolder (accent color can be changed in res/values/colors.xml)
+
 [![GitHub license](https://img.shields.io/github/license/mono0926/barcode_scan2.svg)](https://github.com/mono0926/barcode_scan2/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/mono0926/barcode_scan2)](https://github.com/mono0926/barcode_scan2/stargazers)
 [![Pub](https://img.shields.io/pub/v/barcode_scan2.svg)](https://pub.dartlang.org/packages/barcode_scan2)

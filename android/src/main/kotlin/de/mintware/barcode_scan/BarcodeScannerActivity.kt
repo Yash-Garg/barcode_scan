@@ -4,14 +4,23 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.hardware.Camera
 import android.os.Bundle
 import android.view.Surface
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
+import me.dm7.barcodescanner.core.CameraWrapper
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import android.hardware.camera2.CameraManager
+import android.os.Build
+
 
 class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
 
@@ -66,7 +75,7 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
 
         setContentView(R.layout.activity_scanner)
         val contentFrame = findViewById<ViewGroup>(R.id.scan_view)
-        val flashButton = findViewById<ImageView>(R.id.btn_flash)
+        val flashButton = findViewById<FloatingActionButton>(R.id.btn_flash)
 
         scannerView = ZXingAutofocusScannerView(this)
         scannerView?.apply {
@@ -74,7 +83,7 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             setShouldScaleToFill(true)
             setSquareViewFinder(true)
             setIsBorderCornerRounded(true)
-            setBorderCornerRadius(20)
+            setBorderCornerRadius(15)
             setBorderStrokeWidth(10)
 
             val restrictedFormats = mapRestrictedBarcodeTypes()
@@ -90,6 +99,7 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         }
 
         contentFrame.addView(scannerView)
+        flashButton.setRippleColor(ColorStateList.valueOf(Color.parseColor("#EB5B56")))
         flashButton.setOnClickListener { scannerView?.toggleFlash() }
     }
 
